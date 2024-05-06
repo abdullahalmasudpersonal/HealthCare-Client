@@ -12,14 +12,9 @@ import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
 import { useForm, SubmitHandler } from "react-hook-form"
 import { modifyPayload } from "@/utils/modifyPayload";
-
-type Inputs = {
-  name: string,
-  email: string,
-  password: string,
-  contactNumber: string,
-  address: string
-}
+import { registerPatient } from "@/services/actions/registerPatient";
+import { userLogin } from "@/services/actions/userLogin";
+import { storeUserInfo } from "@/services/auth.services";
 
 interface IPatientData {
   name: string,
@@ -34,17 +29,36 @@ interface IPatientRegisterFormData {
 }
 
 const RegisterPage = () => {
+  const router = useRouter()
 
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<IPatientRegisterFormData>()
-  const onSubmit: SubmitHandler<IPatientRegisterFormData> = (values) => {
-    const data = modifyPayload(values);
+  } = useForm<IPatientRegisterFormData>();
 
-    console.log(data)
+  const onSubmit: SubmitHandler<IPatientRegisterFormData> = async (values) => {
+    const data = modifyPayload(values);
+    try {
+      const res = await registerPatient(data)
+      if (res?.data.id) {
+        toast.success(res?.message)
+
+        const result = await userLogin({
+          password: values.password,
+          email: values.patient.email
+        })
+
+        if (result?.data?.accessToken) {
+          storeUserInfo({ accessToken: result?.data?.accessToken })
+          toast.success(res?.message)
+          router.push('/')
+        }
+      }
+    } catch (err: any) {
+      console.log(err.message)
+    }
   }
 
 
