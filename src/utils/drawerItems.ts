@@ -8,7 +8,7 @@ import ReviewsIcon from "@mui/icons-material/Reviews";
 import AirlineSeatIndividualSuiteIcon from "@mui/icons-material/AirlineSeatIndividualSuite";
 import TryIcon from "@mui/icons-material/Try";
 
-export const drawerItems = (role: UserRole) => {
+export const drawerItems = (role: UserRole): DrawerItem[] => {
   const roleManues: DrawerItem[] = [];
 
   switch (role) {

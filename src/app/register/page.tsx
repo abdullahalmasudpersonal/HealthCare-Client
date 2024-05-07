@@ -67,7 +67,7 @@ const RegisterPage = () => {
         if (result?.data?.accessToken) {
           storeUserInfo({ accessToken: result?.data?.accessToken });
           toast.success(res?.message);
-          router.push("/");
+          router.push("/dashboard");
         }
       }
     } catch (err: any) {
@@ -111,14 +111,14 @@ const RegisterPage = () => {
           </Stack>
 
           <Box>
-            <PHForm onSubmit={handleRegister} resolver={zodResolver(validationSchema)} defaultValues={defaultValues}>
+            <PHForm
+              onSubmit={handleRegister}
+              resolver={zodResolver(validationSchema)}
+              defaultValues={defaultValues}
+            >
               <Grid container spacing={2} my={1}>
                 <Grid item md={12}>
-                  <PHInput
-                    name="patient.name"
-                    label="Name"
-                    fullWidth={true}
-                  />
+                  <PHInput name="patient.name" label="Name" fullWidth={true} />
                 </Grid>
                 <Grid item md={6}>
                   <PHInput

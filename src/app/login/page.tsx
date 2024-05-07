@@ -30,7 +30,7 @@ const LoginPage = () => {
       if (res?.data?.accessToken) {
         storeUserInfo({ accessToken: res?.data?.accessToken });
         toast.success(res?.message);
-        router.push("/");
+        router.push("/dashboard");
       } else {
         setError(res.message);
         // console.log(res);
@@ -74,15 +74,21 @@ const LoginPage = () => {
               </Typography>
             </Box>
           </Stack>
-          {
-            error && (<Box>
-              <Typography sx={{
-                backgroundColor: "red", padding: "1px", borderRadius: "2px", color: 'white', marginTop: "5px"
-              }}>
+          {error && (
+            <Box>
+              <Typography
+                sx={{
+                  backgroundColor: "red",
+                  padding: "1px",
+                  borderRadius: "2px",
+                  color: "white",
+                  marginTop: "5px",
+                }}
+              >
                 {error}
               </Typography>
-            </Box>)
-          }
+            </Box>
+          )}
           <Box>
             <PHForm
               onSubmit={handleLogin}
