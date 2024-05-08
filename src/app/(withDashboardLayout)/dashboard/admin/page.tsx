@@ -1,5 +1,4 @@
 
-
 const AdminPage = () => {
     return (
         <div>
