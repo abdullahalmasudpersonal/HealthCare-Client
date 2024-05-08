@@ -12,6 +12,7 @@ type TProps = {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
+
 const SpecialityModal = ({ open, setOpen }: TProps) => {
   const [createSpecialty] = useCreateSpecialtyMutation();
 
@@ -19,13 +20,13 @@ const SpecialityModal = ({ open, setOpen }: TProps) => {
     const data = modifyPayload(values);
     try {
       const res = await createSpecialty(data).unwrap();
-     // console.log(res);
+      // console.log(res);
       if (res?.id) {
         toast.success("Speciality created successfully");
         setOpen(false);
       }
     } catch (err: any) {
-      console.log(err.message)
+      console.log(err.message);
     }
   };
 
@@ -37,13 +38,15 @@ const SpecialityModal = ({ open, setOpen }: TProps) => {
             <PHInput name="title" label="Title" />
           </Grid>
           <Grid item md={6}>
-            <PHFileUploder name='file' label='Upload File' />
+            <PHFileUploder name="file" label="Upload File" />
           </Grid>
         </Grid>
-        <Button sx={{ marginTop: 2 }} type="submit">Create</Button>
+        <Button sx={{ marginTop: 2 }} type="submit">
+          Create
+        </Button>
       </PHForm>
     </PHModal>
-  )
+  );
 };
 
 export default SpecialityModal;

@@ -1,11 +1,15 @@
-'use client'
+"use client";
 import { Box, Button, IconButton, Stack, TextField } from "@mui/material";
 import { useState } from "react";
 import SpecialityModal from "./components/SpecialityModal";
-import { useDeleteSpecialtyMutation, useGetAllSpecialtiesQuery } from "@/redux/api/specialties.Api";
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import {
+  useDeleteSpecialtyMutation,
+  useGetAllSpecialtiesQuery,
+} from "@/redux/api/specialties.Api";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import Image from "next/image";
-import DeleteIcon from '@mui/icons-material/Delete'
+import DeleteIcon from "@mui/icons-material/Delete";
+import { toast } from "sonner";
 
 const SpecialtiesPage = () => {
   const [isMOdalOpen, setIsMOdalOpen] = useState<boolean>(false);
@@ -14,32 +18,42 @@ const SpecialtiesPage = () => {
 
   const handleDelete = async (id: string) => {
     try {
-      const res = await deleteSpecialty(id)
-    // console.log(res, id)
+      const res = await deleteSpecialty(id).unwrap();
+      if (res?.id) {
+        toast.success("Specialty deleted successfully!!!");
+      }
     } catch (err: any) {
-      console.log(err)
+      console.log(err);
     }
-  }
+  };
 
   const columns: GridColDef[] = [
-    { field: 'title', headerName: 'Title', width: 400 },
+    { field: "title", headerName: "Title", width: 600 },
     {
-      field: 'icon', headerName: 'Icon', flex: 1, headerAlign: 'center', align: 'center', renderCell: ({ row }) => {
+      field: "icon",
+      headerName: "Icon",
+      flex: 1,
+      renderCell: ({ row }) => {
         return (
-          <Box my={2}>
-            <Image src={row.icon} alt="" width={20} height={20} />
+          <Box>
+            <Image src={row.icon} alt="" width={30} height={30} />
           </Box>
-        )
-      }
+        );
+      },
     },
     {
-      field: 'action', headerName: 'Action', flex: 1, headerAlign: 'center', align: 'center', renderCell: ({ row }) => {
+      field: "action",
+      headerName: "Action",
+      flex: 1,
+      headerAlign: "center",
+      align: "center",
+      renderCell: ({ row }) => {
         return (
-          <IconButton onClick={() => handleDelete(row.id)} aria-label="delete" >
+          <IconButton onClick={() => handleDelete(row.id)} aria-label="delete">
             <DeleteIcon />
           </IconButton>
-        )
-      }
+        );
+      },
     },
   ];
 
@@ -50,17 +64,14 @@ const SpecialtiesPage = () => {
         <SpecialityModal open={isMOdalOpen} setOpen={setIsMOdalOpen} />
         <TextField size="small" placeholder="Search Specialist" />
       </Stack>
-      {
-        !isLoading ?
-          <Box>
-            <h1>Display Specialities</h1>
-            <DataGrid
-              rows={data}
-              columns={columns}
-            />
-          </Box> :
-          <h1>Loading...</h1>
-      }
+      {!isLoading ? (
+        <Box>
+          <h1>Display Specialities</h1>
+          <DataGrid rows={data} columns={columns} />
+        </Box>
+      ) : (
+        <h1>Loading...</h1>
+      )}
     </Box>
   );
 };
