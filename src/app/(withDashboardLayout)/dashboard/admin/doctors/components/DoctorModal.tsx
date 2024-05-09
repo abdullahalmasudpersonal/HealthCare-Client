@@ -2,7 +2,9 @@ import PHForm from "@/components/Forms/PHForm";
 import PHInput from "@/components/Forms/PHInput";
 import PHSelectField from "@/components/Forms/PHSelectField";
 import PHFullScreenModal from "@/components/shared/PHModal/PHFullScreenModal";
+import { useCreateDoctorMutation } from "@/redux/api/doctorApi";
 import { Gender } from "@/types";
+import { modifyPayload } from "@/utils/modifyPayload";
 import { Button, Grid } from "@mui/material";
 import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
@@ -13,20 +15,19 @@ type TProps = {
 };
 
 const DoctorModal = ({ open, setOpen }: TProps) => {
-  // const [createDoctor] = useCreateDoctorMutation();
+   const [createDoctor] = useCreateDoctorMutation();
 
   const handleFormSubmit = async (values: FieldValues) => {
-    // console.log(values);
     values.doctor.experience = Number(values.doctor.experience);
     values.doctor.apointmentFee = Number(values.doctor.apointmentFee);
-    // const data = modifyPayload(values);
+
+     const data = modifyPayload(values);
     try {
-      //const res = await createDoctor(data).unwrap();
-      // console.log(res);
-      // if (res?.id) {
-      //  toast.success("Doctor created successfully!!!");
-      //  setOpen(false);
-      // }
+      const res = await createDoctor(data).unwrap();
+       if (res?.id) {
+        toast.success("Doctor created successfully!!!");
+        setOpen(false);
+       }
     } catch (err: any) {
       console.error(err);
     }
