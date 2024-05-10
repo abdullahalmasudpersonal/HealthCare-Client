@@ -10,11 +10,15 @@ import {
 } from "@mui/material";
 import Image from "next/image";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
+import doctorr from "../../../../assets/doctor-image1.png";
 
 const TopRatedDoctor = async () => {
   const res = await fetch("http://localhost:5000/api/v1/doctor?page=1&limit=3");
   const { data: doctors } = await res.json();
   //console.log(doctors);
+
+  const docto = doctors.map((doctor: any) => doctor.profilePhoto);
+  console.log(docto.length);
 
   return (
     <Box
@@ -38,12 +42,12 @@ const TopRatedDoctor = async () => {
       </Box>
       <Container sx={{ margin: "30px auto" }}>
         <Grid container spacing={2}>
-          {doctors.map((doctor: any) => (
-            <Grid item key={doctor.id} md={4}>
+          {doctors?.map((doctor: any) => (
+            <Grid item key={doctor?.id} md={4}>
               <Card>
                 <Box>
                   <Image
-                    src={doctor.profilePhoto}
+                    src={doctor?.profilePhoto || null}
                     alt="doctor"
                     width={500}
                     height={100}
@@ -51,13 +55,13 @@ const TopRatedDoctor = async () => {
                 </Box>
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
-                    {doctor.name}
+                    {doctor?.name}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    {doctor.qualification}, {doctor.designation}
+                    {doctor?.qualification}, {doctor?.designation}
                   </Typography>
                   <Typography variant="body2" color="text.secondary" mt={1}>
-                    <LocationOnIcon /> {doctor.address}
+                    <LocationOnIcon /> {doctor?.address}
                   </Typography>
                 </CardContent>
                 <CardActions
@@ -74,6 +78,7 @@ const TopRatedDoctor = async () => {
             </Grid>
           ))}
         </Grid>
+
         <Box
           sx={{
             textAlign: "center",
