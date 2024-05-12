@@ -4,7 +4,6 @@ import PHTimePicker from "@/components/Forms/PHTimePicker";
 import PHModal from "@/components/shared/PHModal/PHModal";
 import { useCreateScheduleMutation } from "@/redux/api/scheduleApi";
 import { dateFormatter } from "@/utils/dateFormatter";
-import { modifyPayload } from "@/utils/modifyPayload";
 import { timeFormatter } from "@/utils/timeFormatter";
 import { Button, Grid } from "@mui/material";
 import { FieldValues } from "react-hook-form";
