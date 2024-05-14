@@ -5,7 +5,7 @@ import SpecialityModal from "./components/SpecialityModal";
 import {
   useDeleteSpecialtyMutation,
   useGetAllSpecialtiesQuery,
-} from "@/redux/api/specialties.Api";
+} from "@/redux/api/specialtiesApi";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import Image from "next/image";
 import DeleteIcon from "@mui/icons-material/Delete";

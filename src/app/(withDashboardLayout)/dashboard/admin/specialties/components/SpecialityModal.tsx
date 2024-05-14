@@ -2,7 +2,7 @@ import PHFileUploder from "@/components/Forms/PHFileUploder";
 import PHForm from "@/components/Forms/PHForm";
 import PHInput from "@/components/Forms/PHInput";
 import PHModal from "@/components/shared/PHModal/PHModal";
-import { useCreateSpecialtyMutation } from "@/redux/api/specialties.Api";
+import { useCreateSpecialtyMutation } from "@/redux/api/specialtiesApi";
 import { modifyPayload } from "@/utils/modifyPayload";
 import { Button, Grid } from "@mui/material";
 import { FieldValues } from "react-hook-form";
