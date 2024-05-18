@@ -8,6 +8,7 @@ import ReviewsIcon from "@mui/icons-material/Reviews";
 import AirlineSeatIndividualSuiteIcon from "@mui/icons-material/AirlineSeatIndividualSuite";
 import TryIcon from "@mui/icons-material/Try";
 import PersonIcon from "@mui/icons-material/Person";
+import KeyIcon from '@mui/icons-material/Key';
 
 export const drawerItems = (role: UserRole): DrawerItem[] => {
   const roleManues: DrawerItem[] = [];
@@ -18,6 +19,11 @@ export const drawerItems = (role: UserRole): DrawerItem[] => {
       path: `${role}/profile`,
       icon: PersonIcon,
     },
+    {
+      title: 'Change Password',
+      path: `change-password`,
+      icon: KeyIcon,
+   },
   ];
 
   switch (role) {

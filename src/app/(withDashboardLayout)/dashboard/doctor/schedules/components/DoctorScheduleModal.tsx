@@ -20,7 +20,7 @@ const DoctorScheduleModal = ({ open, setOpen }: TProps) => {
     dayjs(new Date()).toISOString()
   );
 
-  const [selectedScheduleIds, setSelectedScheduleIds] = useState<string[]>([]);
+const [selectedScheduleIds, setSelectedScheduleIds] = useState<string[]>([]);
 
   const query: Record<string, any> = {};
 
