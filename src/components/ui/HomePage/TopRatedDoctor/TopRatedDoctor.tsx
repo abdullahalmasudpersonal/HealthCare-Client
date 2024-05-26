@@ -15,10 +15,10 @@ import doctorr from "../../../../assets/doctor-image1.png";
 const TopRatedDoctor = async () => {
   const res = await fetch("http://localhost:5000/api/v1/doctor?page=1&limit=3");
   const { data: doctors } = await res.json();
-  //console.log(doctors);
+  console.log(doctors);
 
-  const docto = doctors.map((doctor: any) => doctor.profilePhoto);
-  console.log(docto.length);
+  const docto = doctors.map((doctor: any) => doctor);
+  // console.log(docto);
 
   return (
     <Box
